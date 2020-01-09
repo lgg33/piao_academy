@@ -2,6 +2,7 @@ package com.lg.edu.service;
 
 import com.lg.edu.entity.Subject;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lg.edu.entity.dto.SubjectDtoFirst;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -16,4 +17,12 @@ import java.util.List;
  */
 public interface SubjectService extends IService<Subject> {
     List<String> batchImport(MultipartFile file);
+
+    List<SubjectDtoFirst> nestedList();
+
+    boolean deleteById(String id);
+
+    boolean saveFirst(Subject subject);
+
+    boolean saveSecond(Subject subject);
 }

@@ -1,6 +1,7 @@
 package com.lg.edu.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lg.common.response.ResponseResult;
 import com.lg.common.response.ResultCode;
@@ -50,6 +51,18 @@ public class TeacherController {
     public ResponseResult findAll() {
         List<Teacher> teachers = teacherService.list(null);
         return ResponseResult.success().data("item", teachers);
+    }
+
+    @ApiOperation("根据名称查询教师")
+    @GetMapping("/getByName/{name}")
+    public ResponseResult getByName(@PathVariable("name") String name) {
+        QueryWrapper<Teacher> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("name", name);
+        Teacher teacher = teacherService.getOne(queryWrapper);
+        if (teacher != null) {
+            return ResponseResult.setResult(ResultCode.TEACHER_NAME_ALREADY_EXIST);
+        }
+        return ResponseResult.success();
     }
 
     @ApiOperation("根据Id删除教师")
