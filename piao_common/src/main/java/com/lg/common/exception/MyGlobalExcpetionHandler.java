@@ -48,7 +48,7 @@ public class MyGlobalExcpetionHandler {
 
     @ExceptionHandler(PiaoException.class)
     @ResponseBody
-    public ResponseResult eduException(PiaoException e) {
+    public ResponseResult piaoException(PiaoException e) {
         e.printStackTrace();
         return ResponseResult.error().code(e.getCode()).message(e.getMessage());
     }

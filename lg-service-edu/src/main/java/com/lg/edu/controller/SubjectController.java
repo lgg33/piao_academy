@@ -31,7 +31,7 @@ public class SubjectController {
     @Autowired
     SubjectService subjectService;
 
-    @ApiOperation("批量导入Excel")
+    @ApiOperation("导入Excel")
     @PostMapping("/import")
     public ResponseResult importExcel(@RequestParam("file") MultipartFile file) {
         List<String> msg = subjectService.batchImport(file);

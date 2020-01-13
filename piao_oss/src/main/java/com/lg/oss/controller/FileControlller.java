@@ -2,9 +2,11 @@ package com.lg.oss.controller;
 
 import com.lg.common.response.ResponseResult;
 import com.lg.oss.service.impl.FileServiceImpl;
+import com.lg.oss.utils.ConstantPropertiesUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -28,7 +30,10 @@ public class FileControlller {
 
     @ApiOperation("文件上传")
     @PostMapping("/upload")
-    public ResponseResult upload(@RequestParam("file") MultipartFile file) {
+    public ResponseResult upload(@RequestParam("file") MultipartFile file, String host) {
+        if (!StringUtils.isEmpty(host)) {
+            ConstantPropertiesUtil.FILE_HOST = host;
+        }
         Map<String, String> map = fileService.upload(file);
         return ResponseResult.success().message("上传成功").data("item", map);
     }
