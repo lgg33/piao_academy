@@ -3,6 +3,7 @@ package com.lg.edu.service;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lg.edu.entity.Course;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lg.edu.entity.dto.CoursePublishDto;
 import com.lg.edu.entity.form.CourseInfoForm;
 import com.lg.edu.query.CourseQuery;
 
@@ -23,4 +24,10 @@ public interface CourseService extends IService<Course> {
     String updateCourseInfoById(CourseInfoForm courseInfoForm);
 
     void queryByPage(Page<Course> coursePage, CourseQuery courseQuery);
+
+    boolean deleteById(String id);
+
+    CoursePublishDto findCoursePublishInfo(String id);
+
+    boolean publishCourseById(String id);
 }

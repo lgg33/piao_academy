@@ -2,6 +2,7 @@ package com.lg.oss;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
 /**
  * @author L
@@ -11,8 +12,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since JDK 1.8
  */
 @SpringBootApplication
-public class OSSAplication {
+@EnableDiscoveryClient
+public class OSSApplication {
     public static void main(String[] args) {
-        SpringApplication.run(OSSAplication.class, args);
+        SpringApplication.run(OSSApplication.class, args);
     }
 }

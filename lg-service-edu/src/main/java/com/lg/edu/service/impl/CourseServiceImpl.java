@@ -7,11 +7,14 @@ import com.lg.common.exception.PiaoException;
 import com.lg.common.utils.PriceConstants;
 import com.lg.edu.entity.Course;
 import com.lg.edu.entity.CourseDescription;
+import com.lg.edu.entity.dto.CoursePublishDto;
 import com.lg.edu.entity.form.CourseInfoForm;
 import com.lg.edu.mapper.CourseMapper;
 import com.lg.edu.query.CourseQuery;
+import com.lg.edu.service.ChapterService;
 import com.lg.edu.service.CourseDescriptionService;
 import com.lg.edu.service.CourseService;
+import com.lg.edu.service.VideoService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,6 +36,12 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
 
     @Autowired
     private CourseDescriptionService courseDescriptionService;
+
+    @Autowired
+    private ChapterService chapterService;
+
+    @Autowired
+    private VideoService videoService;
 
     @Transactional
     @Override
@@ -120,5 +129,28 @@ public class CourseServiceImpl extends ServiceImpl<CourseMapper, Course> impleme
         }
 
         baseMapper.selectPage(coursePage, queryWrapper);
+    }
+
+    @Override
+    public boolean deleteById(String id) {
+        videoService.deleteByCourseId(id);
+        chapterService.deleteByCourseId(id);
+        courseDescriptionService.removeById(id);
+        int result = baseMapper.deleteById(id);
+        return result > 0;
+    }
+
+    @Override
+    public CoursePublishDto findCoursePublishInfo(String id) {
+        return baseMapper.findCoursePublishById(id);
+    }
+
+    @Override
+    public boolean publishCourseById(String id) {
+        Course course = new Course();
+        course.setId(id);
+        course.setStatus(Course.COURSE_NORMAL);
+        int result = baseMapper.updateById(course);
+        return result > 0;
     }
 }

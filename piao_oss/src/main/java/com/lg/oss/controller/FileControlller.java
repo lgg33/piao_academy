@@ -21,7 +21,7 @@ import java.util.Map;
  */
 @Api("阿里云文件管理OSS")
 @RestController
-@RequestMapping("/admin/file")
+@RequestMapping("/oss/file")
 @CrossOrigin
 public class FileControlller {
 

@@ -4,6 +4,7 @@ package com.lg.edu.controller;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lg.common.response.ResponseResult;
 import com.lg.edu.entity.Course;
+import com.lg.edu.entity.dto.CoursePublishDto;
 import com.lg.edu.entity.form.CourseInfoForm;
 import com.lg.edu.query.CourseQuery;
 import com.lg.edu.service.CourseService;
@@ -63,5 +64,31 @@ public class CourseController {
         return ResponseResult.success().data("items", page.getRecords()).data("total", page.getTotal());
     }
 
+    @ApiOperation("根据id删除课程")
+    @DeleteMapping("/{id}")
+    public ResponseResult deleteById(@PathVariable("id") String id) {
+        boolean result = courseService.deleteById(id);
+        if (result) {
+            return ResponseResult.success();
+        }
+        return ResponseResult.error().message("删除课程失败");
+    }
+
+    @ApiOperation("根据Id查询发布信息")
+    @GetMapping("/publish/{id}")
+    public ResponseResult findPublish(@PathVariable("id") String id) {
+        CoursePublishDto coursePublishInfo = courseService.findCoursePublishInfo(id);
+        return ResponseResult.success().data("item", coursePublishInfo);
+    }
+
+    @ApiOperation("根据Id发布课程")
+    @PutMapping("/publish/{id}")
+    public ResponseResult publishCourse(@PathVariable("id") String id) {
+        boolean result = courseService.publishCourseById(id);
+        if (result) {
+            return ResponseResult.success();
+        }
+        return ResponseResult.error().message("发布失败");
+    }
 }
 

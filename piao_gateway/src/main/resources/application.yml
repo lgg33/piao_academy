@@ -1,0 +1,52 @@
+server:
+  port: 7001
+spring:
+  application:
+    name: lg-gateway
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+    gateway:
+      routes:
+        - id: lg-edu
+          uri: lb://lg-edu
+          predicates:
+            - Path=/edu/**
+          filters:
+            - RewritePath=/edu/(?<segment>.*),/$\{segment}
+
+        - id: lg-oss
+          uri: lb://lg-oss
+          predicates:
+            - Path=/oss/**
+          filters:
+            - RewritePath=/oss/(?<segment>.*),/$\{segment}
+
+        - id: lg-vod
+          uri: lb://lg-vod
+          predicates:
+            - Path=/vod/**
+          filters:
+            - RewritePath=/vod/(?<segment>.*),/$\{segment}
+
+        - id: lg-statistics
+          uri: lb://lg-statistics
+          predicates:
+            - Path=/statistics/**
+          filters:
+            - RewritePath=/statistics/(?<segment>.*),/$\{segment}
+
+        - id: lg-uc
+          uri: lb://lg-uc
+          predicates:
+            - Path=/uc/**
+          filters:
+            - RewritePath=/uc/(?<segment>.*),/$\{segment}
+
+        - id: lg-study
+          uri: lb://lg-study
+          predicates:
+            - Path=/study/**
+          filters:
+            - RewritePath=/study/(?<segment>.*),/$\{segment}

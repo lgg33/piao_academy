@@ -2,7 +2,7 @@ package com.lg.test;
 
 import com.aliyun.oss.OSS;
 import com.aliyun.oss.OSSClientBuilder;
-import org.junit.jupiter.api.Test;
+import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 

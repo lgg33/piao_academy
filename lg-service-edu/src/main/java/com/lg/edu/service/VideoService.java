@@ -2,6 +2,7 @@ package com.lg.edu.service;
 
 import com.lg.edu.entity.Video;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.lg.edu.entity.form.VideoInfoForm;
 
 /**
  * <p>
@@ -13,4 +14,16 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface VideoService extends IService<Video> {
 
+    boolean deleteByCourseId(String id);
+
+    boolean getCountById(String id);
+
+
+    void addVideoInfo(VideoInfoForm videoInfoForm);
+
+    VideoInfoForm getVideoInfoFormById(String id);
+
+    void updateVideoInfoById(VideoInfoForm videoInfoForm);
+
+    boolean deleteById(String id);
 }
